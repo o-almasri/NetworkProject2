@@ -84,7 +84,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir)Extern\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(ProjectDir)Extern\libs\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <LibraryPath>$(ProjectDir)Extern\lib\x64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -135,13 +135,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libcrypto.lib;libssl.lib;mysqlcppconn.lib;mysqlcppconn8.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libcrypto.lib;libssl.lib;mysqlcppconn.lib;mysqlcppconn8.lib;libprotobuf.lib;libprotobuf-lite.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -150,7 +151,9 @@
     <ClCompile Include="cBaseDAO.cpp" />
     <ClCompile Include="cUserDAO.cpp" />
     <ClCompile Include="cWebAuthDAO.cpp" />
+    <ClCompile Include="login_request.pb.cc" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="register_request.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAuthServer.h" />
@@ -161,11 +164,17 @@
     <ClInclude Include="eAuthResultType.h" />
     <ClInclude Include="eRegisterResultType.h" />
     <ClInclude Include="eRequestType.h" />
+    <ClInclude Include="login_request.pb.h" />
+    <ClInclude Include="register_request.pb.h" />
     <ClInclude Include="sAuthRequester.h" />
     <ClInclude Include="sLoginRequest.h" />
     <ClInclude Include="sLoginResponse.h" />
     <ClInclude Include="sRegisterRequest.h" />
     <ClInclude Include="sRegisterResponse.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="login_request.proto" />
+    <None Include="register_request.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

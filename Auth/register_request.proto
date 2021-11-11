@@ -1,0 +1,10 @@
+syntax = "proto2";
+
+package auth;
+
+message RegisterRequest {
+   required int32 requestId = 1;  
+   required string name = 2;  
+   required string email = 3;
+   required int32 age = 4;
+}
