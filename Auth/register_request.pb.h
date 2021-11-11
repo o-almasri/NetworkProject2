@@ -193,6 +193,7 @@ class RegisterRequest final :
   enum : int {
     kNameFieldNumber = 2,
     kEmailFieldNumber = 3,
+    kPasswordFieldNumber = 5,
     kRequestIdFieldNumber = 1,
     kAgeFieldNumber = 4,
   };
@@ -230,6 +231,24 @@ class RegisterRequest final :
   const std::string& _internal_email() const;
   inline PROTOBUF_ALWAYS_INLINE void _internal_set_email(const std::string& value);
   std::string* _internal_mutable_email();
+  public:
+
+  // required string password = 5;
+  bool has_password() const;
+  private:
+  bool _internal_has_password() const;
+  public:
+  void clear_password();
+  const std::string& password() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_password(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_password();
+  PROTOBUF_MUST_USE_RESULT std::string* release_password();
+  void set_allocated_password(std::string* password);
+  private:
+  const std::string& _internal_password() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_password(const std::string& value);
+  std::string* _internal_mutable_password();
   public:
 
   // required int32 requestId = 1;
@@ -272,6 +291,7 @@ class RegisterRequest final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
   ::PROTOBUF_NAMESPACE_ID::int32 requestid_;
   ::PROTOBUF_NAMESPACE_ID::int32 age_;
   friend struct ::TableStruct_register_5frequest_2eproto;
@@ -289,7 +309,7 @@ class RegisterRequest final :
 
 // required int32 requestId = 1;
 inline bool RegisterRequest::_internal_has_requestid() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool RegisterRequest::has_requestid() const {
@@ -297,7 +317,7 @@ inline bool RegisterRequest::has_requestid() const {
 }
 inline void RegisterRequest::clear_requestid() {
   requestid_ = 0;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 RegisterRequest::_internal_requestid() const {
   return requestid_;
@@ -307,7 +327,7 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RegisterRequest::requestid() const {
   return _internal_requestid();
 }
 inline void RegisterRequest::_internal_set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   requestid_ = value;
 }
 inline void RegisterRequest::set_requestid(::PROTOBUF_NAMESPACE_ID::int32 value) {
@@ -433,7 +453,7 @@ inline void RegisterRequest::set_allocated_email(std::string* email) {
 
 // required int32 age = 4;
 inline bool RegisterRequest::_internal_has_age() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
   return value;
 }
 inline bool RegisterRequest::has_age() const {
@@ -441,7 +461,7 @@ inline bool RegisterRequest::has_age() const {
 }
 inline void RegisterRequest::clear_age() {
   age_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::int32 RegisterRequest::_internal_age() const {
   return age_;
@@ -451,12 +471,70 @@ inline ::PROTOBUF_NAMESPACE_ID::int32 RegisterRequest::age() const {
   return _internal_age();
 }
 inline void RegisterRequest::_internal_set_age(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
   age_ = value;
 }
 inline void RegisterRequest::set_age(::PROTOBUF_NAMESPACE_ID::int32 value) {
   _internal_set_age(value);
   // @@protoc_insertion_point(field_set:auth.RegisterRequest.age)
+}
+
+// required string password = 5;
+inline bool RegisterRequest::_internal_has_password() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool RegisterRequest::has_password() const {
+  return _internal_has_password();
+}
+inline void RegisterRequest::clear_password() {
+  password_.ClearToEmpty();
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline const std::string& RegisterRequest::password() const {
+  // @@protoc_insertion_point(field_get:auth.RegisterRequest.password)
+  return _internal_password();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void RegisterRequest::set_password(ArgT0&& arg0, ArgT... args) {
+ _has_bits_[0] |= 0x00000004u;
+ password_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:auth.RegisterRequest.password)
+}
+inline std::string* RegisterRequest::mutable_password() {
+  std::string* _s = _internal_mutable_password();
+  // @@protoc_insertion_point(field_mutable:auth.RegisterRequest.password)
+  return _s;
+}
+inline const std::string& RegisterRequest::_internal_password() const {
+  return password_.Get();
+}
+inline void RegisterRequest::_internal_set_password(const std::string& value) {
+  _has_bits_[0] |= 0x00000004u;
+  password_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* RegisterRequest::_internal_mutable_password() {
+  _has_bits_[0] |= 0x00000004u;
+  return password_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* RegisterRequest::release_password() {
+  // @@protoc_insertion_point(field_release:auth.RegisterRequest.password)
+  if (!_internal_has_password()) {
+    return nullptr;
+  }
+  _has_bits_[0] &= ~0x00000004u;
+  return password_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void RegisterRequest::set_allocated_password(std::string* password) {
+  if (password != nullptr) {
+    _has_bits_[0] |= 0x00000004u;
+  } else {
+    _has_bits_[0] &= ~0x00000004u;
+  }
+  password_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), password,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:auth.RegisterRequest.password)
 }
 
 #ifdef __GNUC__

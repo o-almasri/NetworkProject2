@@ -1,9 +1,0 @@
-#pragma once
-
-enum class eRegisterResultType
-{
-	SUCCESS,
-	ACCOUNT_ALREADY_EXISTS,
-	INVALID_PASSWORD,
-	INTERNAL_SERVER_ERROR
-};

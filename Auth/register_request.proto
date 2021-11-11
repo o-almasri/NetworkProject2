@@ -7,4 +7,5 @@ message RegisterRequest {
    required string name = 2;  
    required string email = 3;
    required int32 age = 4;
+   required string password = 5;
 }

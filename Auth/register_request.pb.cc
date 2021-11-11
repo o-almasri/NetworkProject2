@@ -21,6 +21,7 @@ constexpr RegisterRequest::RegisterRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : name_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , email_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , password_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
   , requestid_(0)
   , age_(0){}
 struct RegisterRequestDefaultTypeInternal {
@@ -48,13 +49,15 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_register_5frequest_2eproto::of
   PROTOBUF_FIELD_OFFSET(::auth::RegisterRequest, name_),
   PROTOBUF_FIELD_OFFSET(::auth::RegisterRequest, email_),
   PROTOBUF_FIELD_OFFSET(::auth::RegisterRequest, age_),
-  2,
+  PROTOBUF_FIELD_OFFSET(::auth::RegisterRequest, password_),
+  3,
   0,
   1,
-  3,
+  4,
+  2,
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 10, -1, sizeof(::auth::RegisterRequest)},
+  { 0, 11, -1, sizeof(::auth::RegisterRequest)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -62,13 +65,14 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_register_5frequest_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\026register_request.proto\022\004auth\"N\n\017Regist"
+  "\n\026register_request.proto\022\004auth\"`\n\017Regist"
   "erRequest\022\021\n\trequestId\030\001 \002(\005\022\014\n\004name\030\002 \002"
-  "(\t\022\r\n\005email\030\003 \002(\t\022\013\n\003age\030\004 \002(\005"
+  "(\t\022\r\n\005email\030\003 \002(\t\022\013\n\003age\030\004 \002(\005\022\020\n\010passwo"
+  "rd\030\005 \002(\t"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_register_5frequest_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_register_5frequest_2eproto = {
-  false, false, 110, descriptor_table_protodef_register_5frequest_2eproto, "register_request.proto", 
+  false, false, 128, descriptor_table_protodef_register_5frequest_2eproto, "register_request.proto", 
   &descriptor_table_register_5frequest_2eproto_once, nullptr, 0, 1,
   schemas, file_default_instances, TableStruct_register_5frequest_2eproto::offsets,
   file_level_metadata_register_5frequest_2eproto, file_level_enum_descriptors_register_5frequest_2eproto, file_level_service_descriptors_register_5frequest_2eproto,
@@ -87,7 +91,7 @@ class RegisterRequest::_Internal {
  public:
   using HasBits = decltype(std::declval<RegisterRequest>()._has_bits_);
   static void set_has_requestid(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_name(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -96,10 +100,13 @@ class RegisterRequest::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_age(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_password(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
-    return ((has_bits[0] & 0x0000000f) ^ 0x0000000f) != 0;
+    return ((has_bits[0] & 0x0000001f) ^ 0x0000001f) != 0;
   }
 };
 
@@ -126,6 +133,11 @@ RegisterRequest::RegisterRequest(const RegisterRequest& from)
     email_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_email(), 
       GetArenaForAllocation());
   }
+  password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (from._internal_has_password()) {
+    password_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_password(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&requestid_, &from.requestid_,
     static_cast<size_t>(reinterpret_cast<char*>(&age_) -
     reinterpret_cast<char*>(&requestid_)) + sizeof(age_));
@@ -135,6 +147,7 @@ RegisterRequest::RegisterRequest(const RegisterRequest& from)
 void RegisterRequest::SharedCtor() {
 name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&requestid_) - reinterpret_cast<char*>(this)),
     0, static_cast<size_t>(reinterpret_cast<char*>(&age_) -
@@ -152,6 +165,7 @@ inline void RegisterRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  password_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void RegisterRequest::ArenaDtor(void* object) {
@@ -171,15 +185,18 @@ void RegisterRequest::Clear() {
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
+  if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
       name_.ClearNonDefaultToEmpty();
     }
     if (cached_has_bits & 0x00000002u) {
       email_.ClearNonDefaultToEmpty();
     }
+    if (cached_has_bits & 0x00000004u) {
+      password_.ClearNonDefaultToEmpty();
+    }
   }
-  if (cached_has_bits & 0x0000000cu) {
+  if (cached_has_bits & 0x00000018u) {
     ::memset(&requestid_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&age_) -
         reinterpret_cast<char*>(&requestid_)) + sizeof(age_));
@@ -237,6 +254,18 @@ const char* RegisterRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
         } else
           goto handle_unusual;
         continue;
+      // required string password = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          auto str = _internal_mutable_password();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          #ifndef NDEBUG
+          ::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "auth.RegisterRequest.password");
+          #endif  // !NDEBUG
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -269,7 +298,7 @@ failure:
 
   cached_has_bits = _has_bits_[0];
   // required int32 requestId = 1;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_requestid(), target);
   }
@@ -295,9 +324,19 @@ failure:
   }
 
   // required int32 age = 4;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_age(), target);
+  }
+
+  // required string password = 5;
+  if (cached_has_bits & 0x00000004u) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::VerifyUTF8StringNamedField(
+      this->_internal_password().data(), static_cast<int>(this->_internal_password().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SERIALIZE,
+      "auth.RegisterRequest.password");
+    target = stream->WriteStringMaybeAliased(
+        5, this->_internal_password(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -326,6 +365,13 @@ size_t RegisterRequest::RequiredFieldsByteSizeFallback() const {
         this->_internal_email());
   }
 
+  if (_internal_has_password()) {
+    // required string password = 5;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_password());
+  }
+
   if (_internal_has_requestid()) {
     // required int32 requestId = 1;
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_requestid());
@@ -342,7 +388,7 @@ size_t RegisterRequest::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:auth.RegisterRequest)
   size_t total_size = 0;
 
-  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x0000001f) ^ 0x0000001f) == 0) {  // All required fields are present.
     // required string name = 2;
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
@@ -352,6 +398,11 @@ size_t RegisterRequest::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_email());
+
+    // required string password = 5;
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_password());
 
     // required int32 requestId = 1;
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32SizePlusOne(this->_internal_requestid());
@@ -389,7 +440,7 @@ void RegisterRequest::MergeFrom(const RegisterRequest& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_name(from._internal_name());
     }
@@ -397,9 +448,12 @@ void RegisterRequest::MergeFrom(const RegisterRequest& from) {
       _internal_set_email(from._internal_email());
     }
     if (cached_has_bits & 0x00000004u) {
-      requestid_ = from.requestid_;
+      _internal_set_password(from._internal_password());
     }
     if (cached_has_bits & 0x00000008u) {
+      requestid_ = from.requestid_;
+    }
+    if (cached_has_bits & 0x00000010u) {
       age_ = from.age_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -434,6 +488,11 @@ void RegisterRequest::InternalSwap(RegisterRequest* other) {
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &email_, lhs_arena,
       &other->email_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      &password_, lhs_arena,
+      &other->password_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(RegisterRequest, age_)

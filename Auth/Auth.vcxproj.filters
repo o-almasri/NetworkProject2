@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="cAuthServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="cAuthService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,9 +25,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="cWebAuthDAO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="register_request.pb.cc">
@@ -45,11 +39,29 @@
     <ClCompile Include="login_response.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cAuthRequester.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cLoginPacketHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketSendMessageHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Server.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cRegisterPacketHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="cAuthServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="cAuthService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -62,16 +74,7 @@
     <ClInclude Include="cWebAuthDAO.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="eAuthResultType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="eRegisterResultType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="eRequestType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sAuthRequester.h">
+    <ClInclude Include="cAuthRequester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sLoginRequest.h">
@@ -96,6 +99,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="login_response.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IPacketHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketSendMessageHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Server.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cRegisterPacketHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cLoginPacketHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

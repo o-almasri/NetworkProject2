@@ -9,6 +9,11 @@ namespace netutils
 	// 1 == Receive Message
 	// 2 == join Room 
 	// 3 = leave Room
+	// 4 = Register
+	// 5 = Login
+	// 6 = Register Response
+	// 7 = Login Response
+
 	struct PacketHeader
 	{
 		int packetType;
@@ -88,6 +93,74 @@ namespace netutils
 		size_t GetSize()
 		{
 			return sizeof(PacketHeader) + nameLength + messageLength;
+		}
+	};
+
+	struct PacketRegister
+	{
+		PacketRegister()
+		{
+			header.packetType = 4;
+		}
+
+		PacketHeader header;
+		int dataLength;
+		std::string data;
+
+		size_t GetSize()
+		{
+			return sizeof(PacketHeader) + dataLength;
+		}
+	};
+
+	struct PacketLogin
+	{
+		PacketLogin()
+		{
+			header.packetType = 5;
+		}
+
+		PacketHeader header;
+		int dataLength;
+		std::string data;
+
+		size_t GetSize()
+		{
+			return sizeof(PacketHeader) + dataLength;
+		}
+	};
+
+	struct PacketRegisterResponse
+	{
+		PacketRegisterResponse()
+		{
+			header.packetType = 6;
+		}
+
+		PacketHeader header;
+		int dataLength;
+		std::string data;
+
+		size_t GetSize()
+		{
+			return sizeof(PacketHeader) + dataLength;
+		}
+	};
+
+	struct PacketLoginResponse
+	{
+		PacketLoginResponse()
+		{
+			header.packetType = 7;
+		}
+
+		PacketHeader header;
+		int dataLength;
+		std::string data;
+
+		size_t GetSize()
+		{
+			return sizeof(PacketHeader) + dataLength;
 		}
 	};
 }
