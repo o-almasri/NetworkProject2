@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+package auth;
+
+message LoginResponse {
+   required int32 requestId = 1;
+   required int32 userId = 2;
+   required eAuthResultType result = 3;
+
+   enum eAuthResultType {
+    SUCCESS = 0;
+	INVALID_PASSWORD = 1;
+	EMAIL_NOT_FOUND = 2;
+	INTERNAL_SERVER_ERROR = 3;
+  }
+}

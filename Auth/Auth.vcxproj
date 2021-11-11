@@ -152,8 +152,10 @@
     <ClCompile Include="cUserDAO.cpp" />
     <ClCompile Include="cWebAuthDAO.cpp" />
     <ClCompile Include="login_request.pb.cc" />
+    <ClCompile Include="login_response.pb.cc" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="register_request.pb.cc" />
+    <ClCompile Include="register_response.pb.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAuthServer.h" />
@@ -165,7 +167,9 @@
     <ClInclude Include="eRegisterResultType.h" />
     <ClInclude Include="eRequestType.h" />
     <ClInclude Include="login_request.pb.h" />
+    <ClInclude Include="login_response.pb.h" />
     <ClInclude Include="register_request.pb.h" />
+    <ClInclude Include="register_response.pb.h" />
     <ClInclude Include="sAuthRequester.h" />
     <ClInclude Include="sLoginRequest.h" />
     <ClInclude Include="sLoginResponse.h" />
@@ -174,7 +178,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="login_request.proto" />
+    <None Include="login_response.proto" />
     <None Include="register_request.proto" />
+    <None Include="register_response.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

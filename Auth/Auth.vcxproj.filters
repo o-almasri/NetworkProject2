@@ -39,6 +39,12 @@
     <ClCompile Include="login_request.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="register_response.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="login_response.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAuthServer.h">
@@ -86,12 +92,24 @@
     <ClInclude Include="login_request.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="register_response.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="login_response.pb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="register_request.proto">
       <Filter>Source Files</Filter>
     </None>
     <None Include="login_request.proto">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="register_response.proto">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="login_response.proto">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
