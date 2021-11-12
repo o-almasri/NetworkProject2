@@ -18,7 +18,7 @@ public:
 	cWebAuthDAO();
 	~cWebAuthDAO();
 	//save web auth generated from registration with the created userId
-	sWebAuth Save(sWebAuth auth);
+	void Save(sWebAuth webAuth);
 	//Check if the email and passord are existing in db, therefore valid
 	bool Exists(std::string email, std::string hashedPassword);
 	
