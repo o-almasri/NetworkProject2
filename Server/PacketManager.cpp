@@ -2,6 +2,8 @@
 #include "PacketSendMessageHandler.h"
 #include "PacketLeaveRoomHandler.h"
 #include "PacketJoinRoomHandler.h"
+#include "cPacketRegisterHandler.h"
+#include "cPacketLoginHandler.h"
 
 #include <iostream>
 
@@ -15,6 +17,10 @@ PacketManager* PacketManager::GetInstance()
 		instance->handlerMap.insert(std::make_pair(0, new PacketSendMessageHandler()));
 		instance->handlerMap.insert(std::make_pair(2, new PacketJoinRoomHandler()));
 		instance->handlerMap.insert(std::make_pair(3, new PacketLeaveRoomHandler()));
+		instance->handlerMap.insert(std::make_pair(4, new cPacketRegisterHandler()));
+		instance->handlerMap.insert(std::make_pair(5, new cPacketLoginHandler()));
+		instance->handlerMap.insert(std::make_pair(6, new cPacketRegisterResponseHandler()));
+		instance->handlerMap.insert(std::make_pair(7, new cPacketLoginResponseHandler()));
 	}
 
 	return instance;

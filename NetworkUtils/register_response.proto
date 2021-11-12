@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+package auth;
+
+message RegisterResponse {
+   required int32 requestId = 1;
+   required int32 userId = 2;
+   required eRegisterResultType result = 3;
+
+   enum eRegisterResultType {
+    SUCCESS = 0;
+	ACCOUNT_ALREADY_EXISTS = 1;
+	INVALID_PASSWORD = 2;
+	INTERNAL_SERVER_ERROR = 3;
+  }
+}

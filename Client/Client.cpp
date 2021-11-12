@@ -1,6 +1,8 @@
 #include "Client.h"
 #include "Packets.h"
 #include "PacketManager.h"
+#include "login_request.pb.h"
+#include "register_request.pb.h"
 
 #include <stdio.h>
 #include <conio.h>
@@ -13,9 +15,14 @@
 
 #define DEFAULT_BUFLEN 512 // Default buffer length of our buffer in characters
 
+using namespace auth;
+
+LoginRequest loginReq;
+RegisterRequest registerReq;
+
 Client::Client(PCSTR serverIp, PCSTR port)
 	: buffer(DEFAULT_BUFLEN)
-{
+{	
 	this->serverIp = serverIp;
 	this->serverPort = port;
 	this->serverSocket = INVALID_SOCKET;
@@ -142,6 +149,9 @@ void Client::Start()
 			std::cout << std::endl;
 			sendEnterMessage = false;
 		}
+		/*registerReq.set_email("fafasfaf");
+		loginReq.set_email("fafasfaf");
+		loginReq.set_password("fafasfaf");*/
 
 		if (_kbhit())
 		{

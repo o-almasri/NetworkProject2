@@ -20,10 +20,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="login_request.pb.h" />
+    <ClInclude Include="login_response.pb.h" />
     <ClInclude Include="Packets.h" />
+    <ClInclude Include="register_request.pb.h" />
+    <ClInclude Include="register_response.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="login_request.pb.cc" />
+    <ClCompile Include="login_response.pb.cc" />
+    <ClCompile Include="register_request.pb.cc" />
+    <ClCompile Include="register_response.pb.cc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="login_request.proto" />
+    <None Include="login_response.proto" />
+    <None Include="register_request.proto" />
+    <None Include="register_response.proto" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -88,6 +102,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)common\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)common\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
