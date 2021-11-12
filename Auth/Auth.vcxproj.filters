@@ -77,18 +77,6 @@
     <ClInclude Include="cAuthRequester.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sLoginRequest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sLoginResponse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sRegisterRequest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sRegisterResponse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="register_request.pb.h">
       <Filter>Header Files</Filter>
     </ClInclude>

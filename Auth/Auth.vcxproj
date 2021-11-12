@@ -178,10 +178,6 @@
     <ClInclude Include="register_response.pb.h" />
     <ClInclude Include="cAuthRequester.h" />
     <ClInclude Include="Server.h" />
-    <ClInclude Include="sLoginRequest.h" />
-    <ClInclude Include="sLoginResponse.h" />
-    <ClInclude Include="sRegisterRequest.h" />
-    <ClInclude Include="sRegisterResponse.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="login_request.proto" />
