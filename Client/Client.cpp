@@ -1,8 +1,9 @@
+//ss
 #include "Client.h"
 #include "Packets.h"
 #include "PacketManager.h"
-#include "login_request.pb.h"
-#include "register_request.pb.h"
+
+
 
 #include <stdio.h>
 #include <conio.h>
@@ -15,14 +16,14 @@
 
 #define DEFAULT_BUFLEN 512 // Default buffer length of our buffer in characters
 
-using namespace auth;
 
-LoginRequest loginReq;
-RegisterRequest registerReq;
+auth::LoginRequest loginReq;
+auth::RegisterRequest registerReq;
+
 
 Client::Client(PCSTR serverIp, PCSTR port)
 	: buffer(DEFAULT_BUFLEN)
-{	
+{
 	this->serverIp = serverIp;
 	this->serverPort = port;
 	this->serverSocket = INVALID_SOCKET;
@@ -41,7 +42,7 @@ bool Client::Initialize()
 	struct addrinfo* ptr = NULL;
 	struct addrinfo hints;
 
-	int result;								
+	int result;
 
 	ZeroMemory(&hints, sizeof(hints));
 	hints.ai_family = AF_UNSPEC;
@@ -107,28 +108,15 @@ bool Client::Initialize()
 
 void Client::Start()
 {
-	std::cout << "Please enter your name: ";
-	std::getline(std::cin, this->name);
 
-	std::cout << "Please enter the room you'd like to enter: ";
-	std::getline(std::cin, this->currentRoom);
+	/*this->SendToServer(this->buffer.data, this->buffer.Length());
+	this->buffer.Clear();*/
 
-	netutils::PacketJoinRoom packetJoinRoom;
-	packetJoinRoom.roomNameLength = this->currentRoom.size();
-	packetJoinRoom.roomName = this->currentRoom;
-	packetJoinRoom.nameLength = this->name.size();
-	packetJoinRoom.name = this->name;
+	/*registerReq.set_email("fafasfaf");
+		loginReq.set_email("fafasfaf");
+		loginReq.set_password("fafasfaf");*/
 
-	this->buffer.WriteInt(packetJoinRoom.header.packetType);
-	this->buffer.WriteInt(packetJoinRoom.roomNameLength);
-	this->buffer.WriteString(packetJoinRoom.roomName);
-	this->buffer.WriteInt(packetJoinRoom.nameLength);
-	this->buffer.WriteString(packetJoinRoom.name);
 
-	this->SendToServer(this->buffer.data, this->buffer.Length());
-	this->buffer.Clear();
-
-	std::vector<char> message;
 
 	int total;
 	int result;
@@ -139,126 +127,16 @@ void Client::Start()
 	FD_SET readSet;
 
 	this->running = true;
-	bool sendEnterMessage = true;
 	bool roomChange = false;
 	while (this->running)
 	{
-		if (sendEnterMessage)
-		{
-			std::cout << "Press 'esc' to Change Room OR Enter Message: " << std::endl;
-			std::cout << std::endl;
-			sendEnterMessage = false;
-		}
-		/*registerReq.set_email("fafasfaf");
-		loginReq.set_email("fafasfaf");
-		loginReq.set_password("fafasfaf");*/
+
+
 
 		if (_kbhit())
 		{
 			char key = _getch();
-			if (key == 8 && !message.empty()) // Backspace
-			{
-				message.pop_back();
-				std::string msg(message.begin(), message.end());
-				std::cout << "\r" << msg;
-			}
-			else if (key == 13) // Enter
-			{
-				std::string msg(message.begin(), message.end());
-				message.clear();
 
-				if (roomChange)
-				{
-					roomChange = false;
-
-					if (msg == "leave")
-					{
-						netutils::PacketLeaveRoom packet;
-						packet.roomNameLength = this->currentRoom.size();
-						packet.roomName = this->currentRoom;
-						packet.namelength = this->name.size();
-						packet.name = this->name;
-
-						netutils::Buffer buffer(packet.GetSize());
-						buffer.WriteInt(packet.header.packetType);
-						buffer.WriteInt(packet.roomNameLength);
-						buffer.WriteString(packet.roomName);
-						buffer.WriteInt(packet.namelength);
-						buffer.WriteString(packet.name);
-
-						this->running = this->SendToServer(buffer.data, buffer.Length());
-						if (!this->running)
-						{
-							break;
-						}
-
-						std::cout << std::endl;
-						std::cout << std::endl;
-						this->running = false; // Stop client
-					}
-					else 
-					{ 
-						netutils::PacketJoinRoom packet;
-						packet.roomNameLength = msg.size();
-						packet.roomName = msg;
-						packet.nameLength = name.size();
-						packet.name = name;
-
-						netutils::Buffer buffer(packet.GetSize());
-						buffer.WriteInt(packet.header.packetType);
-						buffer.WriteInt(packet.roomNameLength);
-						buffer.WriteString(packet.roomName);
-						buffer.WriteInt(packet.nameLength);
-						buffer.WriteString(packet.name);
-
-						this->running = this->SendToServer(buffer.data, buffer.Length());
-						if (!this->running)
-						{
-							break;
-						}
-
-						this->currentRoom = packet.roomName;
-						std::cout << std::endl;
-						std::cout << std::endl;
-						sendEnterMessage = true;
-					}
-				}
-				else
-				{
-					netutils::PacketSendMessage packet;
-					packet.messageLength = msg.size();
-					packet.message = msg;
-
-					netutils::Buffer buffer(packet.GetSize());
-					buffer.WriteInt(packet.header.packetType);
-					buffer.WriteInt(packet.messageLength);
-					buffer.WriteString(packet.message);
-		
-					this->running = this->SendToServer(buffer.data, buffer.Length());
-					if (!this->running)
-					{
-						break;
-					}
-
-					std::cout << std::endl;
-					std::cout << std::endl;
-					std::cout << "[" << name << "]: " << msg << std::endl;
-
-					sendEnterMessage = true;
-				}	
-			}
-			else if (key == 27) // escape key
-			{
-				message.clear();
-				std::cout << "Enter Room Name:" << std::endl;
-				roomChange = true;
-			}
-			else
-			{
-				message.push_back(key);
-				std::string msg(message.begin(), message.end());
-				std::cout << "\r" << msg;
-			}
 		}
 
 		FD_ZERO(&readSet); // Wipe out our read set
@@ -339,4 +217,347 @@ bool Client::SendToServer(char* data, int dataLength)
 	}
 
 	return true;
+}
+
+
+
+//add a state variable to the client
+void Client::statemachine(char key) {
+	system("CLS");
+	switch (state) {
+	case BEGIN: // user can login or register 
+		std::cout << "Press 1 To Login  || Press 2 to Register" << std::endl;
+		if (key == 49)
+		{
+			// 1 = user wants to login 
+			state = 1;
+		}
+		else if (key == 50) //TODO: change key code to be num 2 here
+		{
+			//user wants to register
+			state = 4;
+		}
+		else if (key == 27) // escape key
+		{
+			//shutDown
+			running = false;
+		}
+		break;
+
+		//user choose to login 
+	case LOGIN_INPUT_EMAIL: // input username to login 
+		std::cout << "Input your email" << std::endl;
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 27) // escape key
+		{
+			//send user back to state 0
+			state = 0;
+		}
+		else if (key == 13) // enter
+		{
+
+			// send user to enter password
+			std::string msg(message.begin(), message.end());
+			loginReq.set_email(msg);
+			message.clear();
+
+			state = 2;
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+		break;
+	case LOGIN_INPUT_PASSWORD: // input pass to login 
+		std::cout << "Input your Password" << std::endl;
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 27) // escape key
+		{
+			//send user back to state 1 to enter the username again
+			state = 1;
+		}
+		else if (key == 13) // enter
+		{
+			//send msg to server with username and password
+
+			netutils::PacketLogin packet;
+			buffer.WriteInt(packet.header.packetType); // write packet header inside the buffer
+
+			std::string msg(message.begin(), message.end());
+			loginReq.set_password(msg);
+			loginReq.set_requestid(5);
+			//TODO: serialize the msg to a buffer then send it to the server
+			std::string tempData;
+			loginReq.SerializeToString(&tempData);
+			buffer.WriteString(tempData);
+			SendToServer(this->buffer.data, this->buffer.Length());
+			message.clear();
+			state = 3;
+
+
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+
+		break;
+	case LOGIN_WAITING_RESPONSE: // user cant do anything until the server complete the proccessing 
+		std::cout << "attempting to login .." << std::endl;
+		break;
+
+
+		//user choose to Register
+	case REGISTER_INPUT_USERNAME: // input username to Register
+		std::cout << "Input your Name" << std::endl;
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 27) // escape key
+		{
+			//send user back to state 0
+			state = 0;
+		}
+		else if (key == 13) // enter
+		{
+			// send user to enter password
+			//TODO : save the username 
+			// send user to enter password
+			std::string msg(message.begin(), message.end());
+			registerReq.set_name(msg);
+			message.clear();
+
+
+			state = 5;
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+		break;
+	case REGISTER_INPUT_PASSWORD: // input pass to Register 
+		std::cout << "Input New password to Register" << std::endl;
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 27) // escape key
+		{
+			//send user back to state 1 to enter the username again
+			state = 1;
+		}
+		else if (key == 13) // enter
+		{
+			//send msg to server with username and password
+			std::string msg(message.begin(), message.end());
+			registerReq.set_password(msg);
+			message.clear();
+
+			state = 6;
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+		break;
+
+	case REGISTER_INPUT_EMAIL: // input pass to Register 
+		std::cout << "Input your EMAIl" << std::endl;
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 27) // escape key
+		{
+			//send user back to state 1 to enter the username again
+			state = 1;
+		}
+		else if (key == 13) // enter
+		{
+			std::string msg(message.begin(), message.end());
+			registerReq.set_email(msg);
+			message.clear();
+
+			state = 7;
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+		break;
+
+	case REGISTER_INPUT_AGE: // input pass to Register 
+		std::cout << "Input your Age" << std::endl;
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 27) // escape key
+		{
+			//send user back to state 1 to enter the username again
+			state = 1;
+		}
+		else if (key == 13) // enter
+		{
+			netutils::PacketRegister packet;
+			buffer.WriteInt(packet.header.packetType); // write packet header inside the buffer
+			//send msg to server with username and password
+			std::string msg(message.begin(), message.end());
+			registerReq.set_age(stoi(msg));
+			message.clear();
+			registerReq.set_requestid(4);
+			std::string tempData;
+			registerReq.SerializeToString(&tempData);
+			buffer.WriteString(tempData);
+			SendToServer(this->buffer.data, this->buffer.Length());
+			message.clear();
+
+
+			state = 8;
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+		break;
+
+	case REGISTER_WAITING_RESPONSE: // user cant do anything until the server complete the proccessing 
+		std::cout << "Waiting for Server Response" << std::endl;
+		break;
+
+
+		//user is logged in
+	case ROOM_SELECTION: // input chat room to enter
+		std::cout << "Enter Room Name:" << std::endl;
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 13) //enter
+		{
+			//send join room request to server
+
+
+			//netutils::PacketJoinRoom packetJoinRoom;
+			//packetJoinRoom.roomNameLength = this->currentRoom.size();
+			//packetJoinRoom.roomName = this->currentRoom;
+			//packetJoinRoom.nameLength = this->name.size();
+			//packetJoinRoom.name = this->name;
+
+			//this->buffer.WriteInt(packetJoinRoom.header.packetType);
+			//this->buffer.WriteInt(packetJoinRoom.roomNameLength);
+			//this->buffer.WriteString(packetJoinRoom.roomName);
+			//this->buffer.WriteInt(packetJoinRoom.nameLength);
+			//this->buffer.WriteString(packetJoinRoom.name);
+
+			//this->SendToServer(this->buffer.data, this->buffer.Length());
+		}
+		else if (key == 27) // escape key
+		{
+			//esc = logout here 
+			state = 0;
+
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+		break;
+	case CHATTING: // you are in a chatting room just chat
+		if (key == 8 && !message.empty()) // Backspace
+		{
+			message.pop_back();
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+		else if (key == 13) //enter
+		{
+			//send chat request to server
+			std::string msg(message.begin(), message.end());
+			netutils::PacketSendMessage packet;
+			packet.messageLength = msg.size();
+			packet.message = msg;
+
+			netutils::Buffer buffer(packet.GetSize());
+			buffer.WriteInt(packet.header.packetType);
+			buffer.WriteInt(packet.messageLength);
+			buffer.WriteString(packet.message);
+
+
+		}
+		else if (key == 27) // escape key
+		{
+			//esc = go back to room joining state
+			state = 9;
+			//TODO: send leave room packet to server
+
+	/*		netutils::PacketLeaveRoom packet;
+			packet.roomNameLength = this->currentRoom.size();
+			packet.roomName = this->currentRoom;
+			packet.namelength = this->name.size();
+			packet.name = this->name;
+
+			netutils::Buffer buffer(packet.GetSize());
+			buffer.WriteInt(packet.header.packetType);
+			buffer.WriteInt(packet.roomNameLength);
+			buffer.WriteString(packet.roomName);
+			buffer.WriteInt(packet.namelength);
+			buffer.WriteString(packet.name);
+
+			this->SendToServer(this->buffer.data, this->buffer.Length());*/
+		}
+		else
+		{
+			message.push_back(key);
+			std::string msg(message.begin(), message.end());
+			std::cout << "\r" << msg;
+		}
+
+		break;
+
+	}//switch 
+
+
 }
