@@ -384,4 +384,6 @@ FodyWeavers.xsd
 .idea/
 *.sln.iml
 
-x64/Debug/Auth.exe
+x64/
+[Rr]elease/
+[Dd]ebug/

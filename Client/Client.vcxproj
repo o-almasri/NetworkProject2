@@ -101,8 +101,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>$(ProjectDir)Extern\lib\x64\;$(Configuration);$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)NetworkUtils\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)common\lib\$(Configuration)_x64;$(SolutionDir)common\network-utils-lib\$(Configuration)_x64;$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)common\include;$(SolutionDir)NetworkUtils\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -159,7 +159,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>NetworkUtils.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libprotobuf.lib;libprotobuf-lite.lib;libprotoc.lib;NetworkUtils.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
