@@ -86,7 +86,7 @@
     <LinkIncremental>false</LinkIncremental>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(SolutionDir)common\lib\$(Configuration)_x64;$(SolutionDir)common\network-utils-lib\$(Configuration)_x64;$(Configuration);$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)common\include;$(SolutionDir)NetworkUtils;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)common\include;$(SolutionDir)NetworkUtils\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
