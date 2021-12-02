@@ -1,10 +1,4 @@
 #include "cPacketRegisterHandler.h"
-#include "Client.h"
-
-cPacketRegisterHandler::cPacketRegisterHandler()
-{
-
-}
 
 void cPacketRegisterHandler::HandleOnServer(Server& server, Client* client) {
 

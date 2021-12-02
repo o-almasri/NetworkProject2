@@ -1,12 +1,5 @@
 #include "PacketSendMessageHandler.h"
 
-#include "Packets.h"
-
-PacketSendMessageHandler::PacketSendMessageHandler()
-{
-
-}
-
 void PacketSendMessageHandler::HandleOnServer(Server& server, Client* sender)
 {
 	int messageLength = sender->buffer.ReadInt();

@@ -1,11 +1,7 @@
 #include "IPacketHandler.h"
 
-class PacketLeaveRoomHandler : public IPackethandler
+class PacketLeaveRoomHandler : public IPacketHandler
 {
 public:
 	virtual void HandleOnClient(Client& client, const SOCKET& serverSocket);
-
-private:
-	friend class PacketManager;
-	PacketLeaveRoomHandler();
 };

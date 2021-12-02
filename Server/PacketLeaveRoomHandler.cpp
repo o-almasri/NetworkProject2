@@ -1,10 +1,5 @@
 #include "PacketLeaveRoomHandler.h"
 
-PacketLeaveRoomHandler::PacketLeaveRoomHandler()
-{
-
-}
-
 void PacketLeaveRoomHandler::HandleOnServer(Server& server, Client* sender) {
 
 	//creating new packet type called leave

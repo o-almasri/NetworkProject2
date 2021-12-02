@@ -1,9 +1,6 @@
 #include "PacketJoinRoomHandler.h"
-
-PacketJoinRoomHandler::PacketJoinRoomHandler()
-{
-
-}
+#include <string>
+#include <iostream>
 
 void PacketJoinRoomHandler::HandleOnServer(Server& server, Client* sender) {
 

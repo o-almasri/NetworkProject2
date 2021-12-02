@@ -1,16 +1,11 @@
 #pragma once
-#include "PacketHandler.h"
-#include "Packets.h"
+#include "IPacketHandler.h"
 
 
-class PacketJoinRoomHandler : public IPackethandler
+class PacketJoinRoomHandler : public IPacketHandler
 {
 public:
 	virtual void HandleOnServer(Server& server, Client* sender);
-
-private:
-	friend class PacketManager;
-	PacketJoinRoomHandler();
 };
 
 

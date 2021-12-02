@@ -3,11 +3,6 @@
 #include <string>
 #include <iostream>
 
-PacketLeaveRoomHandler::PacketLeaveRoomHandler()
-{
-
-}
-
 void PacketLeaveRoomHandler::HandleOnClient(Client& client, const SOCKET& serverSocket)
 {
 	int roomNameLength = client.buffer.ReadInt();

@@ -2,12 +2,6 @@
 #include "login_response.pb.h"
 #include "register_response.pb.h"
 
-
-cPacketLoginResponseHandler::cPacketLoginResponseHandler()
-{
-
-}
-
 void cPacketLoginResponseHandler::HandleOnServer(Server& server, Client* client) {
 
 	netutils::PacketLogin packet;

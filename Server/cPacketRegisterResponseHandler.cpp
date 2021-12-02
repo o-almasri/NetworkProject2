@@ -3,11 +3,6 @@
 #include "register_response.pb.h"
 
 
-cPacketRegisterResponseHandler::cPacketRegisterResponseHandler()
-{
-
-}
-
 void cPacketRegisterResponseHandler::HandleOnServer(Server& server, Client* client) {
 
 	netutils::PacketLogin packet;

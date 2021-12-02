@@ -3,11 +3,6 @@
 #include <iostream>
 #include <string>
 
-PacketReceiveMessageHandler::PacketReceiveMessageHandler()
-{
-
-}
-
 void PacketReceiveMessageHandler::HandleOnClient(Client& client, const SOCKET& serverSocket)
 {
 	int nameLength = client.buffer.ReadInt();

@@ -1,14 +1,9 @@
-#pragma once 
+#pragma once
+#include "IPacketHandler.h"
 
-#include "PacketHandler.h"
-
-class PacketSendMessageHandler : public IPackethandler
+class PacketSendMessageHandler : public IPacketHandler
 {
 public:
 	virtual void HandleOnServer(Server& server, Client* sender);
-
-private:
-	friend class PacketManager;
-	PacketSendMessageHandler();
 };
 

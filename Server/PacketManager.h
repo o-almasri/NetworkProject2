@@ -1,7 +1,5 @@
 #pragma once
-
-#include "PacketHandler.h"
-
+#include "IPacketHandler.h"
 #include <map>
 
 class PacketManager
@@ -14,5 +12,5 @@ public:
 	void CleanUp();
 private:
 	static PacketManager* instance;
-	std::map<unsigned int, IPackethandler*> handlerMap;
+	std::map<unsigned int, IPacketHandler*> handlerMap;
 };

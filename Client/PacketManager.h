@@ -15,5 +15,5 @@ public:
 	void CleanUp();
 private:
 	static PacketManager* instance;
-	std::map<unsigned int, IPackethandler*> handlerMap;
+	std::map<unsigned int, IPacketHandler*> handlerMap;
 };

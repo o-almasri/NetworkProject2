@@ -1,17 +1,11 @@
 #pragma once
 #include "IPacketHandler.h"
-#include "Server.h"
-#include "Client.h"
 
 
-class cPacketRegisterHandler : public IPackethandler
+class cPacketRegisterHandler : public IPacketHandler
 {
 public:
 	virtual void HandleOnServer(Server& server, Client* client);
-
-private:
-	friend class PacketManager;
-	cPacketRegisterHandler();
 };
 
 

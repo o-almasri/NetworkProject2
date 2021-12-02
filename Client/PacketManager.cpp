@@ -22,7 +22,7 @@ PacketManager* PacketManager::GetInstance()
 
 void PacketManager::HandlePacket(Client& client, const SOCKET& serverSocket, unsigned int packetType)
 {
-	std::map<unsigned int, IPackethandler*>::iterator it = this->handlerMap.find(packetType);
+	std::map<unsigned int, IPacketHandler*>::iterator it = this->handlerMap.find(packetType);
 	if (it != this->handlerMap.end())
 	{
 		it->second->HandleOnClient(client, serverSocket);
@@ -35,7 +35,7 @@ void PacketManager::HandlePacket(Client& client, const SOCKET& serverSocket, uns
 
 void PacketManager::CleanUp()
 {
-	std::map<unsigned int, IPackethandler*>::iterator it;
+	std::map<unsigned int, IPacketHandler*>::iterator it;
 	for (it = this->handlerMap.begin(); it != this->handlerMap.end(); it++)
 	{
 		delete it->second;

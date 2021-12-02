@@ -387,3 +387,7 @@ FodyWeavers.xsd
 x64/
 [Rr]elease/
 [Dd]ebug/
+
+Auth/x64/Release/Auth.exe.recipe
+x64/Release/Auth.exe
+Client/x64/Release/Client.exe.recipe
