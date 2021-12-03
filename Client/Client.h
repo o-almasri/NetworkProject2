@@ -48,8 +48,6 @@ private:
 	int state; // used to determine what to display for the client
 	std::vector<char> message; // used to hold the msg
 
-
-
 	bool running;
 
 	std::string currentRoom;
@@ -58,6 +56,6 @@ private:
 	PCSTR serverIp;
 	PCSTR serverPort;
 	SOCKET serverSocket;
-
-
+	void CleanChar();
+	void AddMessage(char& key);
 };

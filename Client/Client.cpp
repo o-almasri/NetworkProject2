@@ -2,7 +2,8 @@
 #include "Client.h"
 #include "Packets.h"
 #include "PacketManager.h"
-
+#include "login_request.pb.h"
+#include "register_request.pb.h"
 
 
 #include <stdio.h>
@@ -16,6 +17,11 @@
 
 #define DEFAULT_BUFLEN 512 // Default buffer length of our buffer in characters
 
+const char ESCAPE = 27;
+const char BACKSPACE = 8;
+const char ENTER = 13;
+const char KEY_1 = 49;
+const char KEY_2 = 50;
 
 auth::LoginRequest loginReq;
 auth::RegisterRequest registerReq;
@@ -108,7 +114,6 @@ bool Client::Initialize()
 
 void Client::Start()
 {
-
 	/*this->SendToServer(this->buffer.data, this->buffer.Length());
 	this->buffer.Clear();*/
 
@@ -128,15 +133,15 @@ void Client::Start()
 
 	this->running = true;
 	bool roomChange = false;
+	state = states::BEGIN;
+	std::cout << "Welcome, Press any key to start..." << std::endl;
 	while (this->running)
 	{
-
-
 
 		if (_kbhit())
 		{
 			char key = _getch();
-
+			statemachine(key);
 		}
 
 		FD_ZERO(&readSet); // Wipe out our read set
@@ -219,101 +224,75 @@ bool Client::SendToServer(char* data, int dataLength)
 	return true;
 }
 
+void Client::CleanChar()
+{
+	if (!message.empty())
+	{
+		message.pop_back();
+		std::string msg(message.begin(), message.end());
+		std::cout << "\r" << msg;
+	}
+}
 
+void Client::AddMessage(char& key)
+{
+	message.push_back(key);
+	std::string msg(message.begin(), message.end());
+	std::cout << "\r" << msg;
+}
 
 //add a state variable to the client
 void Client::statemachine(char key) {
 	system("CLS");
+	
 	switch (state) {
 	case BEGIN: // user can login or register 
 		std::cout << "Press 1 To Login  || Press 2 to Register" << std::endl;
-		if (key == 49)
-		{
-			// 1 = user wants to login 
-			state = 1;
-		}
-		else if (key == 50) //TODO: change key code to be num 2 here
-		{
-			//user wants to register
-			state = 4;
-		}
-		else if (key == 27) // escape key
-		{
-			//shutDown
-			running = false;
-		}
+		if (key == KEY_1) { state = states::LOGIN_INPUT_EMAIL;message.clear(); }
+		else if (key == KEY_2) { state = states::REGISTER_INPUT_USERNAME;message.clear(); }
+		else if (key == ESCAPE) running = false;
 		break;
-
 		//user choose to login 
 	case LOGIN_INPUT_EMAIL: // input username to login 
 		std::cout << "Input your email" << std::endl;
-		if (key == 8 && !message.empty()) // Backspace
-		{
-			message.pop_back();
-			std::string msg(message.begin(), message.end());
-			std::cout << "\r" << msg;
-		}
-		else if (key == 27) // escape key
-		{
-			//send user back to state 0
-			state = 0;
-		}
-		else if (key == 13) // enter
-		{
-
-			// send user to enter password
+		if (key == BACKSPACE) CleanChar();
+		else if (key == ESCAPE) state = states::BEGIN;
+		else if (key == ENTER) 
+		{	
 			std::string msg(message.begin(), message.end());
 			loginReq.set_email(msg);
 			message.clear();
-
-			state = 2;
+			//Go Next step
+			state = states::LOGIN_INPUT_PASSWORD;
 		}
 		else
 		{
-			message.push_back(key);
-			std::string msg(message.begin(), message.end());
-			std::cout << "\r" << msg;
+			AddMessage(key);
 		}
 
 		break;
 	case LOGIN_INPUT_PASSWORD: // input pass to login 
 		std::cout << "Input your Password" << std::endl;
-		if (key == 8 && !message.empty()) // Backspace
-		{
-			message.pop_back();
-			std::string msg(message.begin(), message.end());
-			std::cout << "\r" << msg;
-		}
-		else if (key == 27) // escape key
-		{
-			//send user back to state 1 to enter the username again
-			state = 1;
-		}
-		else if (key == 13) // enter
+		if (key == BACKSPACE) CleanChar();
+		else if (key == ESCAPE) state = states::BEGIN;
+		else if (key == ENTER)
 		{
 			//send msg to server with username and password
-
 			netutils::PacketLogin packet;
-			buffer.WriteInt(packet.header.packetType); // write packet header inside the buffer
-
+			buffer.WriteInt(packet.header.packetType);
 			std::string msg(message.begin(), message.end());
 			loginReq.set_password(msg);
-			loginReq.set_requestid(5);
-			//TODO: serialize the msg to a buffer then send it to the server
+			loginReq.set_requestid(states::LOGIN_INPUT_PASSWORD);
 			std::string tempData;
 			loginReq.SerializeToString(&tempData);
 			buffer.WriteString(tempData);
 			SendToServer(this->buffer.data, this->buffer.Length());
 			message.clear();
 			state = 3;
-
-
 		}
 		else
 		{
-			message.push_back(key);
-			std::string msg(message.begin(), message.end());
-			std::cout << "\r" << msg;
+			AddMessage(key);
 		}
 
 
