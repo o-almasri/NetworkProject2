@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\HashGenerator">
+      <UniqueIdentifier>{91da112b-76a9-45e6-9351-91c6c2560b75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="cAuthService.cpp">
@@ -48,6 +51,9 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HashGenerator.cpp">
+      <Filter>Source Files\HashGenerator</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cAuthService.h">
@@ -82,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="cLoginPacketHandler.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HashGenerator.h">
+      <Filter>Source Files\HashGenerator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,10 +8,26 @@ cWebAuthDAO* webauthDAO;
 //Generate the hash and salt
 void GenerateHashedPassword(sUser& user, sWebAuth& webAuth, const std::string& plainPassword)
 {
-	//TODO generate salt
-	webAuth.salt = "TODO";
-	//TODO 
-	webAuth.hashedPassword = "TODO";
+	std::string salt = "";
+	char alphaSalt[27] = { 'a','b','c','d','e',
+						   'f','g','h','i','j',
+						   'k','l','m','n','o',
+						   'p','q','r','s','t',
+						   'u','v','w','x','y',
+						   'z','!' };
+
+	for (int i = 0; i < 8; i++)
+	{
+		int a = (std::rand() % 27);
+		salt += alphaSalt[a];
+	}
+	webAuth.salt = salt;
+	std::string password = plainPassword + salt;
+	SHA256 sha;
+	sha.update(password);
+	uint8_t* digest = sha.digest();
+	std::cout << SHA256::toString(digest) << std::endl;
+	webAuth.hashedPassword = SHA256::toString(digest);
 }
 
 
