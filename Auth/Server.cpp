@@ -29,7 +29,7 @@ Server::~Server()
 
 bool Server::Initialize()
 {
-    printf("Initializing server...\n");
+    printf("Initializing Auth Server...\n");
 
     int result;
     struct addrinfo* info = NULL;
@@ -110,7 +110,7 @@ void Server::Start()
 
     FD_SET readSet;
 
-    printf("Server started!\n");
+    printf("Auth Server started!\n");
     while (true)
     {
         timeval timeoutValue = { 0 };
@@ -197,7 +197,7 @@ void Server::Start()
 
 void Server::ShutDown()
 {
-    printf("Server shutting down...\n");
+    printf("Auth Server shutting down...\n");
     closesocket(this->acceptSocket);
     closesocket(this->connectionSocket);
     for (cAuthRequester* requester : requesters)

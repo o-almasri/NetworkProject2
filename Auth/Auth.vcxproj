@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)\NetworkUtils;$(SolutionDir)common\include;$(ProjectDir)Extern\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)common\network-utils-lib\$(Configuration)_x64;$(SolutionDir)common\lib\$(Configuration)_x64;$(ProjectDir)Extern\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
+    <IncludePath>$(SolutionDir)common\include;$(SolutionDir)NetworkUtils;$(ProjectDir)Extern\include;$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)common\lib\$(Configuration)_x64;$(SolutionDir)common\network-utils-lib\$(Configuration)_x64;$(ProjectDir)Extern\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
