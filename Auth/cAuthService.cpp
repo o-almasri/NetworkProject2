@@ -1,7 +1,6 @@
 #include "cAuthService.h"
 #include "cUserDAO.h"
 #include "cWebAuthDAO.h"
-#include "HashGenerator.h"
 
 cUserDAO* userDAO;
 cWebAuthDAO* webauthDAO;

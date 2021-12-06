@@ -58,7 +58,4 @@ private:
 	SOCKET serverSocket;
 	void CleanChar();
 	void AddMessage(char& key);
-	int GenerateRequestId();
-	void ReceiveMessage(DWORD& bytesReceived, FD_SET& readSet, int& total);
-	void ResetScreen();
 };
