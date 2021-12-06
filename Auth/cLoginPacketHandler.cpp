@@ -5,7 +5,6 @@ cLoginPacketHandler::cLoginPacketHandler()
 {
 
 }
-
 void cLoginPacketHandler::HandleOnServer(Server& server, cAuthRequester* requester) {
 
 	netutils::PacketLogin packet;

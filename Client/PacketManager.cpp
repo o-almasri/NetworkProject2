@@ -40,6 +40,5 @@ void PacketManager::CleanUp()
 	{
 		delete it->second;
 	}
-
 	this->handlerMap.clear();
 }
