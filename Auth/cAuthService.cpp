@@ -76,7 +76,7 @@ RegisterResponse cAuthService::Register(RegisterRequest request)
 		user = userDAO->Save(user);
 		//Save the webAuth
 		sWebAuth webAuth;
-		webAuth.email = request.name();
+		webAuth.email = request.email();
 		webAuth.userId = user.id;
 		//generate the hashed password and salt
 		GenerateHashedPassword(user, webAuth, request.password());
