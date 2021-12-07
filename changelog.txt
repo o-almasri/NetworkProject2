@@ -1,0 +1,59 @@
+[changelog] by omar  
+
++added connection between client -> server 
++added connection between server -> Auth server 
++add communication functions between auth server 
+
+-fixed DBMS not connecting on my [PC only] " db name and password are different " 
+-fixed data not being constucted correctly " final msg lenght was not being appended " 
+
++Created and added contents to login handler 
++Created and added contents to register hanler 
+-both now work correctly as intended now 
+
++added status msgs along the connection to tell the final user what is going on " more clearly " 
+-fixed a bug in the connect function where it always return exception " trying to get data from null pointer " 
+-fixed a  major bug where all the SQL code didn't contain ->next() statment
+
+-after 4 hours of nothing working i found THE BUG where find by email was not working correctly 
+-SQL statment was "SELECT count(*) FROM user WHERE email = ?;");" 
+-instread of SELECT * FROM user WHERE email = ?;");"
+
+-Fixed Exist function on the Login 
+-Fixed Exist Function on the Registration 
+
+-fixed a bug where auth responses header were being set as original request header 
+-ie. instead of reponse header we get registration header 
+
++added response handlers to the map Login and Registration 
+-cPacketRegisterResponseHandler now sends the Data to the client Directly . 
+-everytime you use protobuffer to get variable it gets removed from the string
+
++added Response map to the server to keep track or requests [big one]
+-fixed related bugs [lots of them ]
+
+-server registration now works as intended 
+-Fixed a bug on the Login where it used to use packet Data instead of response Data 
+
++added hashpasswordwithsalt function to hash password before sending it to be compared 
+-fixed UpdateLastLogin SQL query was trying to access non existing field 
+
+-fixed dissapearing input when in room selection 
+-fixed room name not appearing after joining a room 
+-fixed msg data not being sent with a msg 
+-fixed buffer not being cleared properly when sending a msg 
+-fixed buffer not being received properly 
+-fixed user input msg data not being cleared after sent 
+-fixed msg contents not being broadcasted to everyone 
+
+Protobuf changes 
++added name to login request.proto 
++added name to register request.proto 
++Recompiled login and register Requests .proto 
+-fixed client having old version of netutils which didn't have the newly added handlers
+-SQL functions added to get name by email 
+-Login and Register now use name and add it to protobuf 
+-fixed some related bugs for SQL statments [minor]
+
+
+
