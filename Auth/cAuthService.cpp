@@ -27,7 +27,6 @@ void GenerateHashedPassword(sUser& user, sWebAuth& webAuth, const std::string& p
 	SHA256 sha;
 	sha.update(password);
 	uint8_t* digest = sha.digest();
-	//std::cout <<"HashedPassword" << SHA256::toString(digest) << std::endl;
 	webAuth.hashedPassword = SHA256::toString(digest);
 }
 
@@ -38,7 +37,6 @@ std::string HashPasswordWithSalt (std::string salt ,  std::string plainPassword)
 	SHA256 sha;
 	sha.update(password);
 	uint8_t* digest = sha.digest();
-	//std::cout << "HashedPassword" << SHA256::toString(digest) << std::endl;
 	return SHA256::toString(digest);
 }
 
@@ -47,6 +45,9 @@ cAuthService::cAuthService()
 {
 	userDAO = new cUserDAO();
 	webauthDAO = new cWebAuthDAO();
+	//Seed random generation
+	unsigned int uiTime = static_cast<unsigned int>(time(NULL));
+	srand(uiTime);
 }
 cAuthService:: ~cAuthService(){}
 
