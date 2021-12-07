@@ -277,7 +277,7 @@ void Client::set_name(std::string newName)
 
 //add a state variable to the client
 void Client::statemachine(char key) {
-	//system("CLS");
+	system("CLS");
 	
 	switch (state) {
 	case BEGIN: // user can login or register 

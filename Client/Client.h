@@ -9,6 +9,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <stdlib.h>
+#include <sstream>
 
 #include "login_request.pb.h"
 #include "register_request.pb.h"
@@ -32,6 +33,8 @@ public:
 	void set_name(std::string name);
 
 	netutils::Buffer buffer;
+
+	std::stringstream chatLog;
 
 private:
 	void ShutDown();

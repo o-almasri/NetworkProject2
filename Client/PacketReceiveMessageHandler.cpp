@@ -10,6 +10,10 @@ void PacketReceiveMessageHandler::HandleOnClient(Client& client, const SOCKET& s
 	int messageLength = client.buffer.ReadInt();
 	std::string message = client.buffer.ReadString(messageLength);
 
-	std::cout << "[" << name << "]: " << message << std::endl;
-	std::cout << std::endl;
+	client.chatLog << "[" << name << "]: " << message;
+	client.chatLog << "\n";
+	system("CLS");
+	std::cout << client.chatLog.str() << std::endl;
+	/*std::cout << "[" << name << "]: " << message << std::endl;
+	std::cout << std::endl;*/
 }
