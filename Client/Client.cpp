@@ -34,6 +34,7 @@ Client::Client(PCSTR serverIp, PCSTR port)
 	this->serverPort = port;
 	this->serverSocket = INVALID_SOCKET;
 	this->running = false;
+	this->LastMsg = "";
 }
 
 Client::~Client()
@@ -278,7 +279,7 @@ void Client::set_name(std::string newName)
 //add a state variable to the client
 void Client::statemachine(char key) {
 	system("CLS");
-	
+	std::cout << LastMsg << std::endl;
 	switch (state) {
 	case BEGIN: // user can login or register 
 	{
@@ -541,4 +542,14 @@ void Client::statemachine(char key) {
 	}//switch 
 
 
+}
+
+void Client::set_LastMsg(std::string msg)
+{
+	LastMsg = msg;
+}
+
+std::string Client::get_LastMsg()
+{
+	return LastMsg;
 }

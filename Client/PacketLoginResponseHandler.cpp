@@ -19,21 +19,21 @@ void PacketLoginResponseHandler::HandleOnClient(Client& client, const SOCKET& se
 	switch (LR.result())
 	{
 	case 0:
-		printf("Login successfully");
+		client.set_LastMsg("Login successfully");
 		newState = 9;
 		break;
 	case 1:
-		printf("INVALID EMAIL OR PASSWORD");
-		//actually its invalid password but i dont want the client to know which one 
+		//we know its invalid password only but we dont want client to know
+		client.set_LastMsg("INVALID EMAIL OR PASSWORD");
 		break;
 	case 2:
-		printf(" EMAIL_NOT_FOUND ");
+		client.set_LastMsg(" EMAIL_NOT_FOUND ");
 		break;
 	case 3:
-		printf(" INTERNAL_SERVER_ERROR ");
+		client.set_LastMsg(" INTERNAL_SERVER_ERROR ");
 		break;
 	default:
-		printf(" unknown Error");
+		client.set_LastMsg(" unknown Error ");
 		break;
 
 	}

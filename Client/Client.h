@@ -32,6 +32,10 @@ public:
 
 	void set_name(std::string name);
 
+	void set_LastMsg(std::string msg);
+
+	std::string get_LastMsg();
+
 	netutils::Buffer buffer;
 
 	std::stringstream chatLog;
@@ -59,6 +63,8 @@ private:
 
 	std::string currentRoom;
 	std::string name;
+	std::string LastMsg;
+
 
 	PCSTR serverIp;
 	PCSTR serverPort;

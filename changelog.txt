@@ -55,5 +55,7 @@ Protobuf changes
 -Login and Register now use name and add it to protobuf 
 -fixed some related bugs for SQL statments [minor]
 
+-Fixed Response Msgs disappearing quickly , now they are shown properly to client
+
 
 

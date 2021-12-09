@@ -25,24 +25,25 @@ void PacketRegisterResponseHandler::HandleOnClient(Client& client, const SOCKET&
 	*/
 
 	int newState = 0;
-	switch (RSP.result()) 
+	switch (RSP.result())
 	{
-		case 0:
-			printf("registered successfully");
-			newState = 9;
-			break;
-		case 1:
-			printf("ACCOUNT_ALREADY_EXISTS");
-			break;
-		case 2:
-			printf(" INVALID_PASSWORD ");
-			break;
-		case 3:
-			printf(" INTERNAL_SERVER_ERROR ");
-			break;
-		default:
-			printf(" unknown Error");
-			break;
+	case 0:
+		client.set_LastMsg("registered successfully");
+		newState = 9;
+		break;
+	case 1:
+		client.set_LastMsg("ACCOUNT_ALREADY_EXISTS");
+		break;
+	case 2:
+		client.set_LastMsg(" INVALID_PASSWORD ");
+		break;
+	case 3:
+		client.set_LastMsg(" INTERNAL_SERVER_ERROR ");
+		break;
+	default:
+
+		client.set_LastMsg(" unknown Error");
+		break;
 
 	}
 
