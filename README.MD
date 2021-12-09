@@ -12,14 +12,14 @@ BUILD INSTRUCTIONS:
 - Build Solution ( all projects including NetworkUtils which have post build script that copies dlls to $(OutDir))
 
 BUILD DataBase INSTRUCTIONS:
--Go to "MySQL-dump" folder and execute Sql Command inside the 
+- Go to "MySQL-dump" folder and execute Sql Command inside the 
 authenticationservice.sql 
 
 once you have SQL table Created :
--go to cBaseDAO.cpp and change the following :
---const std::string SCHEMA = "authserver"; to "your schema Name " 
---const std::string USER = "root"; to " your DB user Name " 
---const std::string PWD = "root"; to your DB Password 
+- go to cBaseDAO.cpp and change the following :
+- const std::string SCHEMA = "authserver"; to "your schema Name " 
+- const std::string USER = "root"; to " your DB user Name " 
+- const std::string PWD = "root"; to your DB Password 
 
 EXECUTION INSTRUCTIONS:
 
